@@ -1,0 +1,31 @@
+<!-- sebagai tampilan yg bakal diinject ke post_list.html, post_detail.html dan user_post_list.html-->
+<div class="post media">
+	<h3>{{ post.message_html|safe }}</h3>
+	<div class="media-body">
+		<!-- kasih daftar post dengan penulisnya -->
+		<strong>{{ post.user.username }}</strong>
+		<h5 class="media-heading">
+			<!-- kasih anchor username penulis post tsb, kalo di klik direct ke list post yg dibuat username tsb -->
+			<span class="username"><a href="{% url 'posts:for_user' username=post.user.username %}">@{{ post.user.username }}</a></span>
+			<!-- kasih anchor created at post tsb dibuat, kalo di klik direct ke list post yg dibuat pada waktu tsb -->
+			<time class="time"><a href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{ post.created_at }}</a></time>
+			{% if post.group %}
+			<span class="group-name">in <a href="#">{{ post.group.name }}</a></span>
+			{% endif %}
+		</h5>
+
+
+
+
+		<div class="media-footer">
+			<!-- jika user login dan post tersebut adalah post dari user tsb, muncul pilihan delete post -->
+			{% if user.is_authenticated and post.user == user and not hide_delete %}
+				<a href="{% url 'posts:delete' pk=post.pk %}" title="delete" class="btn btn-simple">
+					<!-- redirect ke post_confirm_delete.html -->
+					<span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+					<span class="text-danger icon-label">Delete</span>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+</div>

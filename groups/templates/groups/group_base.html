@@ -1,0 +1,19 @@
+<!-- base untuk html group.
+ga semua block dipake,
+misal untuk group_detail.html hanya block pregroup + group content aja yg dipake,
+group_form.html hanya group content
+masing2 block juga punya isi yg berbeda pada tiap html
+dibuat begini karena urutannya udah pasti di tiap html pregroup,group_content,postgroup -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    {% block pregroup %}{% endblock %}
+    {% block group_content %}{% endblock %}
+    {% block postgroup %}{% endblock %}
+  </div>
+</div>
+
+{% endblock %}
